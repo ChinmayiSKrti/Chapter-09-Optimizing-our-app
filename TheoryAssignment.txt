@@ -1,0 +1,83 @@
+1.When and why do we do we need lazy()?
+->When our application is very big and bundling it together, the bundle size also becomes big,
+in such a case we can use lazy loading, 
+so that the bundle size doesnt become big and might break our app.
+We use lazy() for lazy loading of the components.
+Big apps like Make my trip, facebook, amazon etc 
+can make use of lazy loading to load individual components only when they are required.
+i.e instead of trying to load Home page, About page, menu page etc all at once,
+we can load it just before going to that page.
+Ref: https://dev.to/thekashey/code-splitting-what-when-and-why-59op
+https://www.youtube.com/watch?v=IBrmsyy9R94
+
+-------------------------------------------------------------------------------------------------
+
+2.What is Suspense?
+->When we use lazy loading, there is situation where 
+our lazy loaded component might take time to load
+and there could be small gap because of the delay in lazy loaded component,
+and our app might fail or give bad user experience.
+To fix this issue we use something know as Suspense.
+<Suspense></Suspense> lets you display a fallback until its children have finished loading.
+children: The actual UI you intend to render. If children suspends while rendering, 
+the Suspense boundary will switch to rendering fallback.
+fallback: An alternate UI to render in place of the actual UI if it has not finished loading. 
+Any valid React node is accepted, though in practice, a fallback is a lightweight placeholder view,
+such as a loading spinner or skeleton. 
+Suspense will automatically switch to fallback when children suspends,
+and back to children when the data is ready. If fallback suspends while rendering,
+it will activate the closest parent Suspense boundary.
+Eg:
+<Suspense fallback={<Loading />}>
+  <SomeComponent />
+</Suspense>
+Ref: https://beta.reactjs.org/reference/react/Suspense
+
+-------------------------------------------------------------------------------------------------
+
+3.Why we got this error? A component suspended while responding to synchronous input.
+This will cause the UI to be replaced with a loading indicator.
+To fix, updates that suspend should be wrapped with startTransition?
+How does suspense fix this error?
+->Discord Answer: This error is thrown as Exception by React when the promise to 
+dynamically import the lazy component is not yet resolved and the Component is expected to 
+render in the meantime. If only the dynamic import is done and there is no <Suspense /> component 
+then this error is shown. React expects a Suspense boundary to be in place for showing a 
+fallback prop until the promise is getting resolved. If showing the shimmer (loading indicator) 
+is not desirable in some situations, then startTransistion API can used to show the old UI while 
+new UI is being prepared. React do this without having to delete or remove the Suspense component 
+or its props from your code
+Ref: https://tasoskakour.com/blog/react-18-new-api-start-transition
+https://reactjs.org/docs/code-splitting.html
+https://reactjs.org/docs/react-api.html#starttransition
+https://youtu.be/IBrmsyy9R94
+
+-------------------------------------------------------------------------------------------------
+
+4.Advantages and Disadvantages of using this code splitting pattern?
+->https://scythe-studio.com/en/blog/client-side-vs-server-side-rendering
+What is code splitting?
+Code splitting is the splitting of code into various bundles or 
+components which can then be loaded on demand or in parallel
+Ref: https://www.freecodecamp.org/news/code-splitting-in-react-loadable-components/
+
+Discord Answer: https://github.com/kavigithub/React-Assignment-Proj/blob/main/Chapter-9/Theory-Assignment/Chapter-9-Theory.md
+Advantages: Code-splitting helps “lazy-load” the things currently needed by the user by loading the 
+necessary code the user needs. This avoids loading code that the user may never need.
+Advantages: Although this technique does not reduce the overall amount of code in your application,
+it can dramatically improve the performance of your app.
+Disadvantages: Though the initial page load time is reduced, this increases the load time of each 
+component thats loaded dynamically. Only the components that the user needs are loaded initially 
+There will be many http requests as the components are loaded dynamically
+Disadvantages: imporve the user experience while loaded by showing suspense fallback/ loading 
+dicator But, this suspense boundary needs a new chunk of code to be written for showing the shimmer 
+component
+Disadvantages: If ur app is sufficiently small, code splitting might not provide any benefit esp 
+if the overhead of making these requests might be more than the bytes saved.
+
+-------------------------------------------------------------------------------------------------
+
+5.When do we and why do we need suspense?
+->Same as in Q2
+
+-------------------------------------------------------------------------------------------------

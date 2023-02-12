@@ -1,0 +1,46 @@
+Moved folterData from Body.js to utils/helper.js to make our code readable, reusable and testable,
+maintainable.
+testable, How? -> We dont have to check if filter data is happening propely or not,
+when we are testing Body.js
+
+Lets try to create custom hook for apicall in RestaurantMenu
+
+How is functional component different from hooks?
+functional component by definition returns jsx, 
+but hook is a function that extract some logic and returns something
+
+How is normal function different from Hooks?
+Functions can not have useEffect, state or reconciliation, all of which we might want to 
+implement as a separate piece of code, hence the custom hook!
+
+Good to clean up the listener before moving to next component.
+So removelistener inside return function of useEffect
+
+Try useAuth custom hook
+Try custom hook for localstorage
+
+(Windows key + .) in vscode to open emoji picker 
+
+Code splitting, chunking, dynamic bundling, lazy loading, on demand loading, dynamic import
+
+Is bundling good or bad?
+Bundling is good, 
+but that doesnt mean we have to fit all.. the code in one bundle, to make it a huge file.
+
+How to do chunking?
+Where ever you are importing the component, there you do lazy loading for that import,
+instead of normal import.
+
+lazy() is from react library as named import
+
+Upon lazy loading -> upon render -> react suspends loading ->
+because code has not loaded yet for InstaMart say for example,
+<Suspense></Suspense> : will avoid the error due to above behaviour
+
+import() returns promise - Read abt it
+
+Chunking for big apps are required, small apps do not need lazy loading
+
+Never ever dynamically lazy load your component inside another component.
+Why? -> because the lazy loaded component will be lazy loaded, rendered for every render of parent component.
+
